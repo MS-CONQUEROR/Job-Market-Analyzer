@@ -1,6 +1,3 @@
-from dotenv import load_dotenv
-load_dotenv()
-
 import streamlit as st
 from langgraph.graph import START, StateGraph, END, add_messages
 from typing import TypedDict, Annotated
@@ -9,10 +6,16 @@ from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage
 from langchain_tavily import TavilySearch
 from langchain_core.tools import tool
+import os
+
 
 # ============================================
 # SETUP
 # ============================================
+
+os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+os.environ["TAVILY_API_KEY"] = st.secrets["TAVILY_API_KEY"]
+
 model = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 
 @tool
